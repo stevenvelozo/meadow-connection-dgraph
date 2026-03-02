@@ -1,0 +1,51 @@
+{
+	"Generated": "2026-03-02T00:14:25.202Z",
+	"GitHubOrg": "stevenvelozo",
+	"DefaultBranch": "master",
+	"Groups": [
+		{
+			"Name": "Dist",
+			"Key": "dist",
+			"Description": "",
+			"Modules": [
+				{
+					"Name": "indoctrinate_content_staging",
+					"Repo": "indoctrinate_content_staging",
+					"Group": "dist",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		},
+		{
+			"Name": "Docs",
+			"Key": "docs",
+			"Description": "",
+			"Modules": [
+				{
+					"Name": "api",
+					"Repo": "api",
+					"Group": "docs",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
+						"api/stub.md"
+					]
+				}
+			]
+		}
+	]
+}
