@@ -4,6 +4,8 @@
 */
 const libFableServiceProviderBase = require('fable-serviceproviderbase');
 
+const libMeadowSchemaDGraph = require('./Meadow-Schema-DGraph.js');
+
 let libDgraph = false;
 try
 {
@@ -58,10 +60,18 @@ class MeadowConnectionDGraph extends libFableServiceProviderBase
 		this._Client = false;
 		this.connected = false;
 
+		// Schema provider handles DDL operations (create, drop, index, etc.)
+		this._SchemaProvider = new libMeadowSchemaDGraph(this.fable, this.options, `${this.Hash}-Schema`);
+
 		if (this.options.MeadowConnectionDGraphAutoConnect)
 		{
 			this.connect();
 		}
+	}
+
+	get schemaProvider()
+	{
+		return this._SchemaProvider;
 	}
 
 	/**
@@ -78,123 +88,22 @@ class MeadowConnectionDGraph extends libFableServiceProviderBase
 
 	generateDropTableStatement(pTableName)
 	{
-		// Returns a descriptor for dropping a DGraph type
-		return { operation: 'dropType', type: pTableName };
+		return this._SchemaProvider.generateDropTableStatement(pTableName);
 	}
 
 	generateCreateTableStatement(pMeadowTableSchema)
 	{
-		this.log.info(`--> Building the DGraph schema for ${pMeadowTableSchema.TableName} ...`);
-
-		let tmpPredicates = [];
-		let tmpTypeFields = [];
-
-		for (let j = 0; j < pMeadowTableSchema.Columns.length; j++)
-		{
-			let tmpColumn = pMeadowTableSchema.Columns[j];
-			let tmpPredName = tmpColumn.Column;
-			let tmpPredType = 'string';
-			let tmpIndex = '';
-
-			switch (tmpColumn.DataType)
-			{
-				case 'ID':
-					tmpPredType = 'int';
-					tmpIndex = ' @index(int)';
-					break;
-				case 'GUID':
-					tmpPredType = 'string';
-					tmpIndex = ' @index(exact)';
-					break;
-				case 'ForeignKey':
-					tmpPredType = 'int';
-					tmpIndex = ' @index(int)';
-					break;
-				case 'Numeric':
-					tmpPredType = 'int';
-					tmpIndex = ' @index(int)';
-					break;
-				case 'Decimal':
-					tmpPredType = 'float';
-					tmpIndex = ' @index(float)';
-					break;
-				case 'String':
-					tmpPredType = 'string';
-					tmpIndex = ' @index(exact, term)';
-					break;
-				case 'Text':
-					tmpPredType = 'string';
-					tmpIndex = ' @index(fulltext)';
-					break;
-				case 'DateTime':
-					tmpPredType = 'datetime';
-					tmpIndex = ' @index(hour)';
-					break;
-				case 'Boolean':
-					tmpPredType = 'int';
-					tmpIndex = ' @index(int)';
-					break;
-				default:
-					tmpPredType = 'string';
-					tmpIndex = '';
-					break;
-			}
-
-			tmpPredicates.push(`${tmpPredName}: ${tmpPredType}${tmpIndex} .`);
-			tmpTypeFields.push(tmpPredName);
-		}
-
-		let tmpSchema = tmpPredicates.join('\n') + '\n' +
-			'type ' + pMeadowTableSchema.TableName + ' {\n' +
-			tmpTypeFields.map((pField) => { return '\t' + pField; }).join('\n') + '\n' +
-			'}';
-
-		return {
-			operation: 'alterSchema',
-			schema: tmpSchema,
-			typeName: pMeadowTableSchema.TableName
-		};
+		return this._SchemaProvider.generateCreateTableStatement(pMeadowTableSchema);
 	}
 
 	createTables(pMeadowSchema, fCallback)
 	{
-		this.fable.Utility.eachLimit(pMeadowSchema.Tables, 1,
-			(pTable, fCreateComplete) =>
-			{
-				return this.createTable(pTable, fCreateComplete);
-			},
-			(pCreateError) =>
-			{
-				if (pCreateError)
-				{
-					this.log.error(`Meadow-DGraph Error creating schemas: ${pCreateError}`, pCreateError);
-				}
-				this.log.info('Done creating DGraph schemas!');
-				return fCallback(pCreateError);
-			});
+		return this._SchemaProvider.createTables(pMeadowSchema, fCallback);
 	}
 
 	createTable(pMeadowTableSchema, fCallback)
 	{
-		let tmpDescriptor = this.generateCreateTableStatement(pMeadowTableSchema);
-
-		if (!this._Client)
-		{
-			this.log.error(`Meadow-DGraph CREATE SCHEMA for ${tmpDescriptor.typeName} failed: not connected.`);
-			return fCallback(new Error('Not connected to DGraph'));
-		}
-
-		this._Client.alter({ schema: tmpDescriptor.schema })
-			.then(() =>
-			{
-				this.log.info(`Meadow-DGraph schema for ${tmpDescriptor.typeName} applied successfully.`);
-				return fCallback();
-			})
-			.catch((pError) =>
-			{
-				this.log.error(`Meadow-DGraph CREATE SCHEMA for ${tmpDescriptor.typeName} failed!`, pError);
-				return fCallback(pError);
-			});
+		return this._SchemaProvider.createTable(pMeadowTableSchema, fCallback);
 	}
 
 	connect()
@@ -226,6 +135,7 @@ class MeadowConnectionDGraph extends libFableServiceProviderBase
 		}
 
 		this.connected = true;
+		this._SchemaProvider.setClient(this._Client);
 	}
 
 	connectAsync(fCallback)
