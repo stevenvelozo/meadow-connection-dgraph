@@ -35,11 +35,12 @@
 	"author": "Steven Velozo <steven@velozo.com>",
 	"license": "MIT",
 	"dependencies": {
-		"fable-serviceproviderbase": "^3.0.18",
-		"dgraph-js-http": "^21.3.0"
+		"dgraph-js-http": "^21.3.0",
+		"fable-serviceproviderbase": "^3.0.18"
 	},
 	"devDependencies": {
 		"fable": "^3.1.55",
+		"pict-docuserve": "^0.1.5",
 		"quackage": "^1.1.0"
 	}
 }
