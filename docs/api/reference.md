@@ -25,7 +25,7 @@ On construction:
 - Sets `serviceType` to `'MeadowConnectionDGraph'`
 - Sets `connected` to `false`
 - Reads `DGraph` settings from options or `fable.settings.DGraph`
-- Normalizes Meadow-style property names (`Server`→`host`, `Port`→`port`, `AuthToken`→`authToken`)
+- Normalizes Meadow-style property names (`Server`->`host`, `Port`->`port`, `AuthToken`->`authToken`)
 - Defaults host to `'localhost'`, port to `8080`
 - Optionally auto-connects if `MeadowConnectionDGraphAutoConnect` is `true`
 
@@ -119,7 +119,7 @@ fable.serviceManager.instantiateServiceProvider('MeadowDGraphProvider',
 | `DGraph.Server` | `DGraph.host` | string | `'localhost'` | Dgraph Alpha hostname or IP |
 | `DGraph.Port` | `DGraph.port` | number | `8080` | Dgraph Alpha HTTP port |
 | `DGraph.AuthToken` | `DGraph.authToken` | string | `''` | Optional Alpha auth token |
-| `MeadowConnectionDGraphAutoConnect` | — | boolean | `false` | Auto-connect on instantiation |
+| `MeadowConnectionDGraphAutoConnect` | -- | boolean | `false` | Auto-connect on instantiation |
 
 Constructor options override Fable settings. Both Meadow-style (`Server`) and lowercase (`host`) property names are accepted.
 

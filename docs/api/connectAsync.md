@@ -63,7 +63,7 @@ Calling `connectAsync()` on an already-connected provider returns the existing c
 _Fable.MeadowDGraphProvider.connectAsync(
 	(pError, pClient1) =>
 	{
-		// First connection — succeeds normally
+		// First connection -- succeeds normally
 
 		_Fable.MeadowDGraphProvider.connectAsync(
 			(pError, pClient2) =>

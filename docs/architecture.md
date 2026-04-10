@@ -68,16 +68,16 @@ Unlike SQL-based Meadow connectors, Dgraph uses a transaction-based model. The p
 ```mermaid
 flowchart LR
 	subgraph "Dgraph Transaction API"
-		QUERY["txn.query(dql)<br/>→ DQL response"]
-		QVAR["txn.queryWithVars(dql, vars)<br/>→ DQL response"]
-		MUTATE["txn.mutate(mutation)<br/>→ mutation response"]
-		COMMIT["txn.commit()<br/>→ finalize"]
-		DISCARD["txn.discard()<br/>→ rollback"]
+		QUERY["txn.query(dql)<br/>-> DQL response"]
+		QVAR["txn.queryWithVars(dql, vars)<br/>-> DQL response"]
+		MUTATE["txn.mutate(mutation)<br/>-> mutation response"]
+		COMMIT["txn.commit()<br/>-> finalize"]
+		DISCARD["txn.discard()<br/>-> rollback"]
 	end
 
 	subgraph "Client Operations"
 		NEWTXN["client.newTxn()"]
-		ALTER["client.alter(schema)<br/>→ schema change"]
+		ALTER["client.alter(schema)<br/>-> schema change"]
 	end
 
 	NEWTXN --> QUERY
@@ -114,7 +114,7 @@ flowchart TD
 	CO["Constructor Options<br/>(host, port, authToken)"]
 	Provider["MeadowConnectionDGraph"]
 	Decision{{"Which source?"}}
-	Normalize["Normalize property names<br/>(Server→host, Port→port, AuthToken→authToken)"]
+	Normalize["Normalize property names<br/>(Server->host, Port->port, AuthToken->authToken)"]
 	URL["_buildConnectionURL()<br/>http://host:port"]
 
 	FS --> Decision
@@ -126,8 +126,8 @@ flowchart TD
 
 Settings priority:
 
-1. **Constructor options** — passed as the second argument to `instantiateServiceProvider()`
-2. **Fable settings** — `fable.settings.DGraph`
+1. **Constructor options** -- passed as the second argument to `instantiateServiceProvider()`
+2. **Fable settings** -- `fable.settings.DGraph`
 
 Both Meadow-style (`Server`, `Port`, `AuthToken`) and lowercase (`host`, `port`, `authToken`) property names are supported. Meadow-style names are normalized to lowercase during construction.
 

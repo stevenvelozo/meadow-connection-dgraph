@@ -57,7 +57,7 @@ _Fable.MeadowDGraphProvider.createTable(tmpAnimalSchema,
 
 ## Additive Schema
 
-Dgraph schema alterations are additive. Calling `createTable()` multiple times with the same schema is safe — predicates and types are updated, not duplicated. This makes `createTable()` safe to call during application startup.
+Dgraph schema alterations are additive. Calling `createTable()` multiple times with the same schema is safe -- predicates and types are updated, not duplicated. This makes `createTable()` safe to call during application startup.
 
 ## Not Connected
 

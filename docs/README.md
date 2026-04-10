@@ -79,8 +79,8 @@ tmpTxn.query('{ animals(func: type(Animal)) { uid Name Age Weight } }')
 
 The provider reads settings from two sources, in order of priority:
 
-1. **Constructor options** — passed as the second argument to `instantiateServiceProvider()`
-2. **Fable settings** — `fable.settings.DGraph`
+1. **Constructor options** -- passed as the second argument to `instantiateServiceProvider()`
+2. **Fable settings** -- `fable.settings.DGraph`
 
 | Setting | Alias | Type | Default | Description |
 |---------|-------|------|---------|-------------|

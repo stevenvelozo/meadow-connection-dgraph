@@ -65,7 +65,7 @@ let _Fable = new libFable(
 _Fable.serviceManager.addAndInstantiateServiceType(
 	'MeadowDGraphProvider', libMeadowConnectionDGraph);
 
-// Already connected — pool is ready
+// Already connected -- pool is ready
 let tmpClient = _Fable.MeadowDGraphProvider.pool;
 ```
 

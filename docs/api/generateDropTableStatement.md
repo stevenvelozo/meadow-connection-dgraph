@@ -31,7 +31,7 @@ console.log(tmpDescriptor);
 
 ## Executing the Drop
 
-This method only generates a descriptor — it does not execute against Dgraph. To drop a type, use the client's alter API:
+This method only generates a descriptor -- it does not execute against Dgraph. To drop a type, use the client's alter API:
 
 ```javascript
 let tmpDescriptor = _Fable.MeadowDGraphProvider.generateDropTableStatement('Animal');

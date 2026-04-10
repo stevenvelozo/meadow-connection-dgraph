@@ -12,7 +12,7 @@ Get a Dgraph connection established and schemas applied in five steps.
 
 ---
 
-## Step 1 — Install
+## Step 1 -- Install
 
 ```bash
 npm install meadow-connection-dgraph fable
@@ -20,7 +20,7 @@ npm install meadow-connection-dgraph fable
 
 ---
 
-## Step 2 — Configure and Connect
+## Step 2 -- Configure and Connect
 
 ```javascript
 const libFable = require('fable');
@@ -69,7 +69,7 @@ For secured clusters, add an `AuthToken`:
 
 ---
 
-## Step 3 — Run Queries and Mutations
+## Step 3 -- Run Queries and Mutations
 
 All queries and mutations go through the Dgraph client via the `pool` getter:
 
@@ -125,7 +125,7 @@ tmpMutTxn.mutate(tmpMutation)
 
 ---
 
-## Step 4 — Create Schemas from Meadow Table Definitions
+## Step 4 -- Create Schemas from Meadow Table Definitions
 
 Instead of writing Dgraph schema by hand, pass a Meadow table schema to `createTable()`:
 
@@ -189,7 +189,7 @@ type Animal {
 
 ---
 
-## Step 5 — Create Multiple Schemas
+## Step 5 -- Create Multiple Schemas
 
 For applications with many entity types, use `createTables()` with a full Meadow schema:
 
