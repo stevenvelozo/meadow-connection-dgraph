@@ -1,7 +1,5 @@
 # Meadow Connection Dgraph
 
-<small>v1.0.0</small>
-
 > Dgraph graph database provider for the Meadow data layer
 
 Connect any Fable application to a Dgraph cluster through the service provider pattern. Built on dgraph-js-http for HTTP-based access to Dgraph Alpha, with schema generation from Meadow table definitions and optional auth token support.
