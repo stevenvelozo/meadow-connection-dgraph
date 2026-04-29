@@ -1,6 +1,6 @@
 {
 	"name": "meadow-connection-dgraph",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Meadow DGraph Connection Plugin",
 	"main": "source/Meadow-Connection-DGraph.js",
 	"scripts": {
